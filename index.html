@@ -1,0 +1,394 @@
+<!doctype html>
+<html lang="no">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Gnist i Athen</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=GFS+Didot&family=Source+Sans+3:wght@400;600;700&family=IBM+Plex+Mono:wght@500&display=swap">
+<style>
+html{color-scheme:light;padding:env(safe-area-inset-top,0px) 0 env(safe-area-inset-bottom,0px)}
+body{margin:0}
+img{max-width:100%}
+[hidden]{display:none!important}
+:root{
+  --ground:#F3F5F4;--surface:#FFFFFF;--ink:#16212B;--muted:#56636C;--line:#D9E0E2;
+  --sea:#1D4E73;--sea-soft:#E3ECF2;--sun:#B86A12;--sun-soft:#F6EBDD;--olive:#5E6B34;--olive-soft:#EBEEDF;--tcol:5.2rem;
+}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
+  color-scheme:dark;--ground:#0F1820;--surface:#16222C;--ink:#E7ECEE;--muted:#9AA8B1;--line:#26343F;
+  --sea:#8CC0E4;--sea-soft:#1B2F3F;--sun:#E9A95A;--sun-soft:#2E2518;--olive:#B5C27E;--olive-soft:#232A18;}}
+:root[data-theme="dark"]{
+  color-scheme:dark;--ground:#0F1820;--surface:#16222C;--ink:#E7ECEE;--muted:#9AA8B1;--line:#26343F;
+  --sea:#8CC0E4;--sea-soft:#1B2F3F;--sun:#E9A95A;--sun-soft:#2E2518;--olive:#B5C27E;--olive-soft:#232A18;}
+
+*{box-sizing:border-box}
+body{background:var(--ground);color:var(--ink);font:16px/1.55 "Source Sans 3",system-ui,sans-serif;padding-inline:16px;padding-block:0;-webkit-text-size-adjust:100%}
+.wrap{max-width:720px;margin:0 auto}
+h1,h2,h3{font-family:"GFS Didot",Didot,"Bodoni 72",Georgia,serif;font-weight:400;text-wrap:balance;margin:0}
+.mono{font-family:"IBM Plex Mono",ui-monospace,Consolas,monospace;font-variant-numeric:tabular-nums}
+a{color:var(--sea)}
+:focus-visible{outline:2px solid var(--sun);outline-offset:2px}
+button{font:inherit;color:inherit}
+
+.hero{position:relative;margin-inline:-16px;height:clamp(210px,42vw,330px);display:flex;align-items:flex-end;
+  background:#2a3a44 url("img/hero.jpg") center 38%/cover no-repeat;color:#fff}
+.hero::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(10,20,30,0) 25%,rgba(10,20,30,.8))}
+.hero .wrap{position:relative;z-index:1;width:100%;padding:0 16px 20px}
+.eyebrow{font-size:.72rem;letter-spacing:.14em;text-transform:uppercase;font-weight:700;opacity:.95}
+.hero h1{font-size:clamp(2.8rem,12vw,4.8rem);line-height:.95;margin-top:4px}
+.hero a.herolink{color:#fff;text-underline-offset:3px}
+.hero p{margin:6px 0 0;font-size:.98rem;opacity:.92}
+
+nav.tabs{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--ground);margin-inline:-16px;padding:0 16px;border-bottom:1px solid var(--line)}
+nav.tabs .wrap{display:flex}
+nav.tabs a{flex:1;text-align:center;padding:14px 8px 11px;text-decoration:none;color:var(--muted);font-weight:700;border-bottom:3px solid transparent}
+nav.tabs a[aria-current="page"]{color:var(--ink);border-color:var(--sun)}
+
+/* controls */
+.controls{display:flex;flex-direction:column;gap:12px;margin:18px 0 6px}
+.seg{display:grid;grid-template-columns:1fr 1fr;background:var(--sea-soft);border-radius:10px;padding:4px}
+.seg button{border:0;background:transparent;padding:9px 6px;border-radius:7px;font-weight:700;color:var(--muted);cursor:pointer;min-height:40px}
+.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.days{display:grid;grid-template-columns:repeat(4,1fr);gap:6px}
+.days button{border:1px solid var(--line);background:var(--surface);border-radius:10px;padding:7px 4px;cursor:pointer;line-height:1.15;min-height:48px}
+.days button b{display:block;font-size:.95rem}
+.days button span{font-size:.75rem;color:var(--muted)}
+.days button[aria-pressed="true"]{border-color:var(--sea);background:var(--sea);color:#fff}
+.days button[aria-pressed="true"] span{color:inherit;opacity:.85}
+:root[data-theme="dark"] .days button[aria-pressed="true"]{color:#0F1820}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .days button[aria-pressed="true"]{color:#0F1820}}
+
+/* agenda */
+.day{margin-top:28px}
+.day-head{display:flex;align-items:baseline;justify-content:space-between;gap:10px;flex-wrap:wrap;margin-bottom:14px}
+.day-head h2{font-size:1.8rem}
+.day-head small{font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase;color:var(--sun)}
+.earlier{display:block;width:100%;border:1px dashed var(--line);background:transparent;border-radius:10px;padding:10px;color:var(--muted);font-weight:600;cursor:pointer;margin-bottom:10px;min-height:44px}
+.list{display:flex;flex-direction:column;gap:14px}
+
+.item{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.item.done{opacity:.55}
+.item.top{border-color:var(--sea);box-shadow:0 2px 10px rgba(29,78,115,.14)}
+.item summary{list-style:none;display:grid;grid-template-columns:var(--tcol) 1fr auto;gap:12px;align-items:start;padding:16px 14px 16px 16px;cursor:pointer;min-height:56px}
+.item summary::-webkit-details-marker{display:none}
+.item .t{color:var(--sea);font-size:.9rem;padding-top:2px}
+.item .t.soft{font-family:"Source Sans 3",sans-serif;font-size:.7rem;font-weight:700;letter-spacing:.02em;text-transform:uppercase;color:var(--muted);padding-top:4px;overflow-wrap:anywhere;line-height:1.25}
+.item .h{font-weight:700;font-size:1.02rem;line-height:1.3}
+.item .p{display:block;font-weight:400;color:var(--muted);font-size:.9rem;margin-top:2px}
+.chev{width:22px;height:22px;margin-top:1px;color:var(--muted);transition:transform .2s}
+details[open] > summary .chev{transform:rotate(180deg)}
+.pill{display:inline-block;font-size:.68rem;font-weight:700;letter-spacing:.08em;text-transform:uppercase;padding:2px 8px;border-radius:99px;margin:0 0 4px;vertical-align:1px}
+.pill.now{background:var(--sea);color:var(--surface)}
+.pill.next{background:var(--sun-soft);color:var(--sun)}
+.pill.free{background:var(--olive-soft);color:var(--olive)}
+.pill.note{background:var(--sun-soft);color:var(--sun)}
+.item.free{background:var(--olive-soft);border-color:transparent}
+.body{margin:0 16px 18px;padding-top:14px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:14px;font-size:.96rem}
+@media (min-width:480px){.body{margin-left:calc(16px + var(--tcol) + 12px);margin-right:24px}}
+.body img{display:block;width:100%;border-radius:8px;aspect-ratio:16/9;object-fit:cover}
+.body p{margin:0}
+.body ul{margin:0;padding-left:20px}
+.body li{margin:2px 0}
+.links{display:flex;flex-wrap:wrap;gap:8px}
+.links a{display:inline-flex;align-items:center;min-height:36px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:700;font-size:.88rem;background:var(--surface)}
+.contacts a.maplink{color:inherit;font-weight:700}
+.body .addr{color:var(--muted);font-size:.9rem}
+.stops{list-style:none;padding:0!important;display:flex;flex-direction:column;gap:8px}
+.stops li{border-left:3px solid var(--sun);padding-left:10px}
+.stops b{display:block}
+.menu{border:1px solid var(--line);border-radius:8px}
+.menu summary{padding:11px 14px;font-weight:700;color:var(--sea);cursor:pointer}
+.menu .m{padding:2px 14px 14px}
+.menu h4{margin:10px 0 2px;font-size:.72rem;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.done-msg{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:18px;text-align:center}
+
+.contacts{margin:40px -16px 0;background:var(--sea);color:#fff;padding:16px 16px calc(16px + env(safe-area-inset-bottom,0px))}
+.contacts .wrap{max-width:720px}
+:root[data-theme="dark"] .contacts{background:var(--sea-soft);color:var(--ink)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]) .contacts{background:var(--sea-soft);color:var(--ink)}}
+.contacts h2{font:700 .7rem/1 "Source Sans 3",sans-serif;letter-spacing:.14em;text-transform:uppercase;opacity:.8;margin-bottom:10px}
+.contacts ul{list-style:none;margin:0;padding:0;display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px 16px}
+.contacts li{display:flex;flex-direction:column;gap:2px;min-width:0}
+.contacts .who{font-weight:700;font-size:.88rem;line-height:1.25}
+.contacts .who span{display:block;font-weight:400;opacity:.8;font-size:.76rem}
+.num{display:flex;align-items:center;gap:6px;flex-wrap:wrap}
+.num .mono{user-select:all;font-size:.8rem}
+button.copy{font-weight:700;font-size:.68rem;border:1px solid currentColor;background:transparent;border-radius:6px;padding:2px 7px;cursor:pointer;min-height:26px;opacity:.9}
+
+/* Forslag */
+.intro{margin:22px 0 0;color:var(--muted);max-width:62ch}
+.slot{margin-top:56px;padding-top:28px;border-top:1px solid var(--line)}
+.slot:first-of-type{border-top:0;padding-top:0;margin-top:36px}
+.slot h2{font-size:1.6rem}
+.slot .when{color:var(--sun);font-weight:700;font-size:.75rem;letter-spacing:.12em;text-transform:uppercase}
+.slot h2{margin-top:4px}
+.slot > p{margin:6px 0 0;color:var(--muted)}
+.ideas{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px;margin-top:18px}
+.idea{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;display:flex;flex-direction:column;gap:6px}
+.idea h3{font-size:1.2rem}
+.idea p{margin:0;font-size:.95rem}
+.idea .meta{margin-top:auto;padding-top:4px;color:var(--muted);font-size:.85rem}
+.tips{margin-top:56px;border-top:1px solid var(--line);padding-top:20px}
+.tips h2{font-size:1.5rem}
+.tips dl{display:grid;grid-template-columns:max-content 1fr;gap:10px 18px;margin:12px 0 0}
+.tips dt{font-weight:700}
+.tips dd{margin:0}
+@media (max-width:520px){.tips dl{grid-template-columns:1fr;gap:2px}.tips dd{margin-bottom:10px}}
+@media (prefers-reduced-motion:reduce){.chev{transition:none}}
+</style>
+</head>
+<body>
+<header class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Gnist Consulting · Blåtur 2026</div>
+    <h1>Athen</h1>
+    <p>8.–11. oktober · <a class="herolink" href="https://www.google.com/maps/search/?api=1&query=Athens+Coast+Hotel%2C+Grigoriou+Lampraki+25%2C+Glyfada" target="_blank" rel="noopener">Athens Coast Hotel, Glyfada</a></p>
+  </div>
+</header>
+
+<nav class="tabs" aria-label="Sider">
+  <div class="wrap">
+    <a href="#program" id="tab-program">Program</a>
+    <a href="#forslag" id="tab-forslag">Fritid</a>
+  </div>
+</nav>
+
+<main class="wrap">
+<section id="view-program">
+  <div class="controls">
+    <div class="seg" role="group" aria-label="Visning">
+      <button type="button" id="mode-day" aria-pressed="true">Dag for dag</button>
+      <button type="button" id="mode-all" aria-pressed="false">Hele turen</button>
+    </div>
+    <div class="days" id="days" role="group" aria-label="Velg dag"></div>
+  </div>
+  <div id="agenda"></div>
+
+</section>
+
+<section id="view-forslag" hidden>
+  <p class="intro">Forslagene er tilpasset programmet: tidsvinduene er de faktiske pausene mellom aktivitetene, og vi har unngått å gjenta det vi allerede gjør sammen – bading og sol fredag, utsikt mot Akropolis og shopping i Plaka lørdag, og gyros og moussaka på lunsjmenyene. Alt er frivillig, og ingenting er booket. Hotellet ligger i Glyfada, ca. 30–40 minutter med taxi fra sentrum.</p>
+
+  <div class="slot">
+    <div class="when">Torsdag · etter lunsj til middag på Monk</div>
+    <h2>Rolig start i Glyfada</h2>
+    <p>Vi har vært oppe siden natten, og fredag blir en lang dag på sjøen. Hold det rolig og i nærheten av hotellet.</p>
+    <div class="ideas">
+      <div class="idea"><h3>Strandpromenaden</h3><p>Gå langs kysten mot Voula og kjenn på varmen. Både Proedros og Monk ligger i Glyfada, så du rekker å slappe av mellom måltidene.</p><div class="meta">Gangavstand · ingen planlegging</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=Glyfada+beach" target="_blank" rel="noopener">Kart</a></p></div>
+      <div class="idea"><h3>Kaffe i Glyfada</h3><p>Gatene rundt hotellet er fulle av kafeer. Bestill en freddo espresso – iskaffen grekerne drikker hele dagen. Spar shoppingen til Plaka på lørdag.</p><div class="meta">Gangavstand</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=cafes+Glyfada+centre" target="_blank" rel="noopener">Kart</a></p></div>
+      <div class="idea"><h3>Hvil eller basseng</h3><p>Hotellet har utebasseng. Få litt hvile etter den tidlige avreisen, så du er klar for middagen og drikkepakken på Monk.</p><div class="meta">Anbefales</div></div>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="when">Fredag · kvelden fra 19.15</div>
+    <h2>Etter en dag på sjøen</h2>
+    <p>Da har vi hatt sol, bading, BBQ-lunsj og øl og vin om bord. Solen er allerede gått ned når vi er tilbake på hotellet. Middag er ikke inkludert.</p>
+    <div class="ideas">
+      <div class="idea"><h3>Lett middag på taverna</h3><p>Etter BBQ-lunsjen passer noe lett: grillet fisk, greske salater og meze til deling i Glyfada. Store grupper bør bestille bord.</p><div class="meta">Gangavstand · fra ca. 20.30</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=fish+taverna+Glyfada" target="_blank" rel="noopener">Finn taverna</a></p></div>
+      <div class="idea"><h3>Drink i Glyfada sentrum</h3><p>Barene i Glyfada sentrum fylles opp sent på kvelden. Henting lørdag er ikke før 10.30, så det er lov å bli ute litt.</p><div class="meta">Gangavstand</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=bars+Glyfada" target="_blank" rel="noopener">Finn barer</a></p></div>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="when">Lørdag · egentid i Plaka etter lunsj, til 16.00</div>
+    <h2>Mer enn shopping</h2>
+    <p>Vi ser Akropolis fra utsiden på formiddagen, og Gods Restaurant ligger rett ved Akropolis-museet. Det er perfekt for å se det vi ikke kommer inn til.</p>
+    <div class="ideas">
+      <div class="idea"><h3>Akropolis-museet</h3><p>Her står skulpturene fra Parthenon – det vi ikke ser fra utsiden av anlegget. Glassgulv over utgravninger, og kafé med utsikt mot Akropolis.</p><div class="meta">2 min fra Gods · 1 time holder</div><p class="links"><a href="https://www.theacropolismuseum.gr/en/" target="_blank" rel="noopener">Nettside</a><a href="https://www.google.com/maps/search/?api=1&query=Acropolis+Museum+Athens" target="_blank" rel="noopener">Kart</a></p></div>
+      <div class="idea"><h3>Loppemarkedet i Monastiraki</h3><p>Hvis Vegards shoppingtips ikke er nok: suvenirer, lærvarer og antikviteter på den andre siden av Plaka.</p><div class="meta">15 min gange fra Gods</div><p class="links"><a href="https://www.thisisathens.org/neighbourhoods/monastiraki-psirri-guide" target="_blank" rel="noopener">Om området</a><a href="https://www.google.com/maps/search/?api=1&query=Monastiraki+Flea+Market+Athens" target="_blank" rel="noopener">Kart</a></p></div>
+      <div class="idea"><h3>Anafiotika</h3><p>Hvite hus og smale smug i skråningen under Akropolis, som en gresk øy midt i byen. Spør Vegard om ruten går forbi.</p><div class="meta">10 min gange</div><p class="links"><a href="https://www.thisisathens.org/neighbourhoods/plaka-guide" target="_blank" rel="noopener">Om området</a><a href="https://www.google.com/maps/search/?api=1&query=Anafiotika+Athens" target="_blank" rel="noopener">Kart</a></p></div>
+    </div>
+  </div>
+
+  <div class="slot">
+    <div class="when">Lørdag · kvelden fra 16.45</div>
+    <h2>Siste kveld</h2>
+    <p>Vi er tilbake på hotellet i god tid før solnedgang (ca. kl. 19). Søndag er det transfer 08.45, så ta en tidlig kveld.</p>
+    <div class="ideas">
+      <div class="idea"><h3>Solnedgang ved Kapp Sounion</h3><p>Poseidon-tempelet på klippen ytterst på kysten, med solen som går ned i havet. Kjøreturen langs kysten er en opplevelse i seg selv. Dette er noe helt annet enn det vi ser i byen.</p><div class="meta">Ca. 45 min med taxi/minibuss hver vei · dra senest 17.30</div><p class="links"><a href="https://www.thisisathens.org/antiquities/temple-poseidon-sounion" target="_blank" rel="noopener">Om tempelet</a><a href="https://www.google.com/maps/search/?api=1&query=Temple+of+Poseidon+Sounion" target="_blank" rel="noopener">Kart</a></p></div>
+      <div class="idea"><h3>Takbar med Akropolis-utsikt</h3><p>Monastiraki har flere takbarer med Akropolis opplyst om kvelden. Det gir et helt annet bilde enn på formiddagen.</p><div class="meta">Taxi 30–40 min tilbake til sentrum</div><p class="links"><a href="https://three-sixty.gr/" target="_blank" rel="noopener">360 Cocktail Bar</a><a href="https://www.google.com/maps/search/?api=1&query=360+Cocktail+Bar+Monastiraki" target="_blank" rel="noopener">Kart</a></p></div>
+      <div class="idea"><h3>Middag i Glyfada</h3><p>Den enkleste løsningen før tidlig avreise. Velg noe vi ikke har hatt ennå – for eksempel souvlaki eller sjømat.</p><div class="meta">Gangavstand</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=restaurants+Glyfada" target="_blank" rel="noopener">Finn restaurant</a></p></div>
+    </div>
+  </div>
+  <section class="tips" aria-labelledby="praktisk">
+    <h2 id="praktisk">Praktisk</h2>
+    <dl>
+      <dt>Klokka</dt><dd>Hellas er én time foran Norge. Still klokka når vi lander.</dd>
+      <dt>Vær</dt><dd>Typisk 20–25 °C i oktober, og havet er fortsatt varmt nok til å bade.</dd>
+      <dt>Cruiset</dt><dd>Ta med badetøy, håndkle og solkrem fra hotellet fredag morgen.</dd>
+      <dt>Lørdag</dt><dd>Bruk gode sko. Steinene rundt Akropolis og i Plaka er blankslitt og glatte.</dd>
+      <dt>Glemt noe?</dt><dd>Apotek (grønt kors) og gatekiosker (periptero) har solkrem, hodepinetabletter og det meste annet.</dd>
+      <dt>Taxi</dt><dd>Resepsjonen bestiller gjerne, og taxi-apper fungerer i Athen. Hotellet ligger 30–40 min fra sentrum.</dd>
+      <dt>Søndag</dt><dd>Sjekk ut før transferen kl. 08.45.</dd>
+      <dt>Nødnummer</dt><dd><span class="mono">112</span></dd>
+    </dl>
+  </section>
+</section>
+</main>
+
+<footer class="contacts" aria-labelledby="kontakt">
+  <div class="wrap">
+    <h2 id="kontakt">Nyttige numre</h2>
+    <ul>
+      <li><span class="who">Vegard Trovatn<span>Guide i Athen</span></span><span class="num"><span class="mono">+47 978 30 168</span><button class="copy" type="button">Kopier</button></span></li>
+      <li><span class="who">EL-VE Tours v/Mia<span>Lokal agent</span></span><span class="num"><span class="mono">+30 210 3232449</span><button class="copy" type="button">Kopier</button></span></li>
+      <li><span class="who">Berg-Hansen vakttelefon<span>Døgnåpen</span></span><span class="num"><span class="mono">+47 220 08050</span><button class="copy" type="button">Kopier</button></span></li>
+      <li><span class="who">Athens Coast Hotel<span>Grigoriou Lampraki 25, Glyfada · <a class="maplink" href="https://www.google.com/maps/search/?api=1&query=Athens+Coast+Hotel%2C+Grigoriou+Lampraki+25%2C+Glyfada" target="_blank" rel="noopener">Kart</a></span></span><span class="num"><span class="mono">+30 210 898 11</span><button class="copy" type="button">Kopier</button></span></li>
+    </ul>
+  </div>
+</footer>
+
+<script>
+var IMG={hotel:"img/hotel.jpg",proedros:"img/proedros.jpg",monk:"img/monk.jpg",boat:"img/boat.jpg",gods:"img/gods.jpg"};
+var FRITID='<p><a href="#forslag">Se forslag til fritiden →</a></p>';
+
+// t = start (ISO with offset). show = time label; omitted → soft label from `when`.
+var DAYS=[
+{id:"2026-10-08",name:"Torsdag",short:"Tor",date:"8. okt",items:[
+ {t:"2026-10-08T06:00+02:00",show:"06.00",title:"Avreise med SK4637",place:"Oslo lufthavn · norsk tid",
+  body:"<p>Flytiden er ca. 3 t 50 min. Hellas er én time foran Norge – still klokka når vi lander.</p>"},
+ {t:"2026-10-08T10:50+03:00",show:"10.50",title:"Ankomst Athen",place:"Guiden Vegard møter oss",
+  body:"<p>Vegard Trovatn venter i ankomsthallen med skilt «Gnist Consulting». Transfer med buss til hotellet i Glyfada, ca. 40 minutter langs kysten.</p>"},
+ {t:"2026-10-08T11:45+03:00",when:"Formiddag",title:"Athens Coast Hotel",place:"Vi setter fra oss bagasjen",img:"hotel",
+  body:"<p>Hotellet ligger midt i Glyfada, «Athen-rivieraen» – kystbyen sør for sentrum med strender, marina, butikker og kafeer. Utebasseng, og trikken inn til sentrum går 100 meter unna.</p><p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Athens+Coast+Hotel%2C+Grigoriou+Lampraki+25%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://www.athenscoasthotel.gr/' target='_blank' rel='noopener'>Hotellets nettside</a></p><p class='addr'>Grigoriou Lampraki 25, 166 75 Glyfada</p>"},
+ {t:"2026-10-08T12:45+03:00",show:"12.45",title:"Lunsj på O Proedros",place:"Savva Lazaridi 3 · Vegard blir med",img:"proedros",
+  body:"<p>«Presidenten» er en familiefavoritt i Glyfada, med hvitkalket gårdsplass som minner om en taverna på Kykladene. Kjent for grill og souvlaki.</p>"+
+  "<details class='menu'><summary>Meny</summary><div class='m'><h4>Til deling (meze)</h4><p>Gresk salat, tzatziki, auberginekuler</p><h4>Hovedrett</h4><p>Chicken gyro-tallerken</p><h4>Dessert</h4><p>Bougatsa – søt pai fra Nord-Hellas</p></div></details><p class='links'><a href='https://www.google.com/maps/search/?api=1&query=O+Proedros%2C+Savva+Lazaridi+3%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a></p>"},
+ {t:"2026-10-08T14:30+03:00",when:"Ettermiddag",title:"Fri ettermiddag",place:"Slapp av i Glyfada",free:true,
+  body:"<p>Hvil etter den tidlige avreisen, ta en tur i bassenget eller en kaffe i Glyfada.</p>"+FRITID},
+ {t:"2026-10-08T19:30+03:00",when:"Kveld",title:"Middag på Monk Gastrobar",place:"Lazaraki 26 · drikkepakke inkludert",img:"monk",
+  body:"<p>Moderne gastrobar der alt dreier seg om Josper – en vedfyrt kullgrill som gir kjøttet røykaroma. Moderne vri på greske oppskrifter.</p>"+
+  "<details class='menu'><summary>Meny</summary><div class='m'><p>Brød med aromatisk smør</p><h4>Salat – velg én</h4><ul><li>Avokado- og appelsinsalat med ingefærsaus, parmesan og hasselnøtt</li><li>Tomatsalat med sjøfennikel, kapersblader, oliven og geitost</li></ul><h4>Smårett</h4><ul><li>Knuste trippelkokte poteter, parmesankrem, trøffelolje</li><li>Greske kjøttboller med yoghurtkrem og røkt paprika</li><li>Ostedoughnuts med graviera og mangochutney</li><li>Røkt aubergine fra Josper-grillen, feta-skum</li></ul><h4>Hovedrett</h4><p>Mixed grill – kylling, short ribs, burger, pølse, svinekotelett, coleslaw, potetpuré</p><h4>Dessert – velg én</h4><ul><li>Profiterole</li><li>Baklava med vaniljeis</li></ul><h4>Drikke</h4><p>Hvit-, rosé- og rødvin, Monk fatøl, brus og vann</p></div></details>"+
+  "<p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Monk+Gastrobar%2C+Lazaraki+26%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://www.monk-glyfada.com/' target='_blank' rel='noopener'>Nettside</a></p><p class='addr'>Lazaraki 26, Glyfada · +30 210 898 3900</p>"}
+]},
+{id:"2026-10-09",name:"Fredag",short:"Fre",date:"9. okt",items:[
+ {t:"2026-10-09T07:00+03:00",when:"Morgen",title:"Frokost på hotellet",place:"Pakk til båten",
+  body:"<p>Ta med badetøy, håndkle, solkrem og solbriller.</p>"},
+ {t:"2026-10-09T11:15+03:00",show:"11.15",title:"Avreise til havnen",place:"Sammen med Vegard",
+  body:"<p>Vegard følger oss fra hotellet til båten.</p>"},
+ {t:"2026-10-09T12:30+03:00",show:"12.30",title:"Privat cruise til Hydrousa",place:"Bading, musikk og BBQ om bord",img:"boat",note:"Badetøy",
+  body:"<p>Hydrousa er en liten, ubebodd øy utenfor Athen-rivieraen, kjent for krystallklart, turkist vann og ingen folkemengder.</p><ul><li>Bading fra båten</li><li>Musikk og god stemning</li><li>Gresk BBQ-lunsj om bord</li><li>Ubegrenset øl og vin</li></ul>"},
+ {t:"2026-10-09T18:30+03:00",show:"18.30",title:"Tilbake i havnen",place:""},
+ {t:"2026-10-09T19:15+03:00",show:"19.15",title:"Tilbake på hotellet",place:""},
+ {t:"2026-10-09T19:30+03:00",when:"Kveld",title:"Fri kveld",place:"Middag på egen hånd",free:true,
+  body:"<p>Etter BBQ-lunsjen passer noe lett – grillet fisk og meze i Glyfada. Henting lørdag er først 10.30.</p>"+FRITID}
+]},
+{id:"2026-10-10",name:"Lørdag",short:"Lør",date:"10. okt",items:[
+ {t:"2026-10-10T07:00+03:00",when:"Morgen",title:"Frokost på hotellet",place:"Ta på gode sko"},
+ {t:"2026-10-10T10:30+03:00",show:"10.30",title:"Sightseeing i Athen",place:"Buss og byvandring med Vegard",note:"Gode sko",
+  body:"<p>Vegard henter oss med buss på hotellet. Underveis ser vi:</p><ul class='stops'>"+
+  "<li><b>Marmorstadion (Panathinaiko)</b>Verdens eneste stadion bygget helt i marmor. Her ble de første moderne olympiske lekene åpnet i 1896.</li>"+
+  "<li><b>Parlamentet og Syntagma-plassen</b>Se evzonene – garden i skjørt og dusksko – foran Den ukjente soldats grav. Vaktskiftet skjer hver hele time.</li>"+
+  "<li><b>Akropolis</b>Bussen setter oss av ved Akropolis, og vi ser anlegget med Parthenon fra utsiden.</li>"+
+  "<li><b>Plaka</b>Byens eldste bydel, i skråningen under Akropolis. Guidet spasertur til lunsj – Vegard viser de beste shoppingstedene.</li></ul>"},
+ {t:"2026-10-10T13:30+03:00",show:"13.30",title:"Lunsj på Gods' Restaurant",place:"Makrigianni 23",img:"gods",note:"Store porsjoner",
+  body:"<p>Familiedrevet restaurant i gågata Makrygianni, rett overfor Akropolis-museet. Hovedretten velger du på stedet.</p>"+
+  "<details class='menu'><summary>Meny</summary><div class='m'><p>Brød med oliven og tzatziki</p><p>Middelhavssalat med feta, basilikum, mynte og honning-lime-dressing</p><p>Ostepai fra Skopelos med honning- og ouzodressing</p><h4>Hovedrett – velg på stedet</h4><ul><li>Tradisjonell moussaka</li><li>Chicken gyros med pita, poteter og tzatziki</li><li>Giouvetsi – oksegryte med orzo</li></ul><h4>Dessert</h4><p>Yoghurt med honning og valnøtter</p><h4>Drikke</h4><p>Vann, pluss én drikke per person (brus, øl eller vin)</p></div></details><p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Gods+Restaurant%2C+Makrygianni+23%2C+Athens' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://www.gods-restaurant.com/en/' target='_blank' rel='noopener'>Nettside</a></p>"},
+ {t:"2026-10-10T15:00+03:00",when:"Etter lunsj",title:"Egentid i Plaka",place:"Shopping eller museum",free:true,
+  body:"<p>Akropolis-museet ligger to minutter fra restauranten og er åpent til 20.00. Her står skulpturene fra Parthenon.</p><p class='links'><a href='https://www.theacropolismuseum.gr/en/' target='_blank' rel='noopener'>Akropolis-museet</a></p>"+FRITID},
+ {t:"2026-10-10T16:00+03:00",show:"16.00",title:"Avreise fra Plaka",place:"Sammen med Vegard"},
+ {t:"2026-10-10T16:45+03:00",show:"16.45",title:"Ankomst hotellet",place:""},
+ {t:"2026-10-10T17:00+03:00",when:"Kveld",title:"Fri kveld",place:"Siste kveld i Athen",free:true,
+  body:"<p>Solen går ned ca. kl. 18.50. Transfer søndag går 08.45 – ta en tidlig kveld.</p>"+FRITID}
+]},
+{id:"2026-10-11",name:"Søndag",short:"Søn",date:"11. okt",items:[
+ {t:"2026-10-11T06:30+03:00",when:"Morgen",title:"Frokost og utsjekking",place:"Rekk transferen 08.45"},
+ {t:"2026-10-11T08:45+03:00",show:"08.45",title:"Transfer til flyplassen",place:"Fra hotellet"},
+ {t:"2026-10-11T09:20+03:00",show:"09.20",title:"Ankomst flyplassen",place:""},
+ {t:"2026-10-11T11:25+03:00",show:"11.25",title:"Avgang med SK4638",place:"Mot Oslo"},
+ {t:"2026-10-11T14:20+02:00",show:"14.20",title:"Ankomst Oslo",place:"Norsk tid · velkommen hjem",end:"2026-10-11T15:00+02:00"}
+]}];
+
+var mode="day", selected=null, showEarlier=false, openState={};
+function now(){return window.__now?new Date(window.__now):new Date();}
+function athensDate(d){return new Intl.DateTimeFormat("en-CA",{timeZone:"Europe/Athens",year:"numeric",month:"2-digit",day:"2-digit"}).format(d);}
+function status(n){
+  var all=[], st={};
+  DAYS.forEach(function(d){d.items.forEach(function(it,i){
+    all.push(it);
+    var s=new Date(it.t), nx=d.items[i+1], e=new Date(nx?nx.t:(it.end||d.id+"T23:59:59+03:00"));
+    st[it.t]= n>=e?"done":(n>=s?"now":"future");
+  });});
+  var firstLive=all.filter(function(it){return st[it.t]!=="done";})[0];
+  return {st:st,top:firstLive?firstLive.t:null};
+}
+function defaultDay(n){
+  var today=athensDate(n);
+  if(today<DAYS[0].id) return DAYS[0].id;
+  if(today>DAYS[3].id) return DAYS[3].id;
+  return today;
+}
+var CHEV='<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>';
+function itemHTML(it,S){
+  var s=S.st[it.t], isTop=S.top===it.t;
+  var pill="";
+  if(isTop) pill= s==="now"?'<span class="pill now">Nå</span> ':'<span class="pill next">Neste</span> ';
+  else if(it.free) pill='<span class="pill free">Fritid</span> ';
+  if(it.note) pill+='<span class="pill note">'+it.note+'</span>';
+  var time= it.show?'<span class="t mono">'+it.show+'</span>':'<span class="t soft">'+it.when+'</span>';
+  var head=time+'<span class="h">'+(pill?pill+'<br>':'')+it.title+(it.place?'<span class="p">'+it.place+'</span>':'')+'</span>';
+  var cls="item"+(s==="done"?" done":"")+(isTop?" top":"")+(it.free?" free":"");
+  var hasBody=it.body||it.img;
+  if(!hasBody) return '<div class="'+cls+'"><div style="display:grid;grid-template-columns:var(--tcol) 1fr;gap:12px;padding:16px 14px 16px 16px">'+head+'</div></div>';
+  var open= it.t in openState? openState[it.t] : isTop;
+  return '<details class="'+cls+'" data-t="'+it.t+'"'+(open?" open":"")+'><summary>'+head+CHEV+'</summary><div class="body">'+
+    (it.img?'<img src="'+IMG[it.img]+'" alt="" loading="lazy">':'')+(it.body||"")+'</div></details>';
+}
+function render(){
+  var n=now(), S=status(n);
+  if(!selected) selected=defaultDay(n);
+  document.getElementById("mode-day").setAttribute("aria-pressed",mode==="day");
+  document.getElementById("mode-all").setAttribute("aria-pressed",mode==="all");
+  var daysEl=document.getElementById("days");
+  daysEl.hidden= mode!=="day";
+  daysEl.innerHTML=DAYS.map(function(d){return '<button type="button" data-day="'+d.id+'" aria-pressed="'+(d.id===selected)+'"><b>'+d.short+'</b><span>'+d.date+'</span></button>';}).join("");
+  var todayLive=athensDate(n);
+  var html="";
+  var list= mode==="day"?DAYS.filter(function(d){return d.id===selected;}):DAYS;
+  list.forEach(function(d){
+    var items=d.items, hiddenCount=0;
+    if(mode==="day" && !showEarlier){
+      var live=items.filter(function(it){return S.st[it.t]!=="done";});
+      if(d.id===todayLive || live.length && live.length<items.length){hiddenCount=items.length-live.length;items=live;}
+    }
+    html+='<article class="day"><div class="day-head"><h2>'+d.name+'</h2><small>'+d.date+'</small></div>';
+    if(hiddenCount) html+='<button type="button" class="earlier" data-earlier>Vis '+hiddenCount+' tidligere i dag</button>';
+    if(!items.length) html+='<div class="done-msg">'+(S.top?'Alt er gjennomført for i dag. Se neste dag over.':'Takk for turen!')+'</div>';
+    html+='<div class="list">'+items.map(function(it){return itemHTML(it,S);}).join("")+'</div></article>';
+  });
+  document.getElementById("agenda").innerHTML=html;
+}
+document.getElementById("mode-day").onclick=function(){mode="day";render();};
+document.getElementById("mode-all").onclick=function(){mode="all";render();};
+document.getElementById("days").addEventListener("click",function(e){var b=e.target.closest("[data-day]");if(b){selected=b.dataset.day;showEarlier=false;render();}});
+document.getElementById("agenda").addEventListener("click",function(e){if(e.target.closest("[data-earlier]")){showEarlier=true;render();}});
+document.getElementById("agenda").addEventListener("toggle",function(e){var d=e.target;if(d.dataset&&d.dataset.t)openState[d.dataset.t]=d.open;},true);
+setInterval(function(){if(!document.hidden)render();},60000);
+document.addEventListener("visibilitychange",function(){if(!document.hidden)render();});
+
+(function(){
+  var views={program:document.getElementById("view-program"),forslag:document.getElementById("view-forslag")};
+  var tabs={program:document.getElementById("tab-program"),forslag:document.getElementById("tab-forslag")};
+  function show(){
+    var h=location.hash.slice(1), v=views[h]?h:"program";
+    for(var k in views){views[k].hidden=k!==v;if(k===v)tabs[k].setAttribute("aria-current","page");else tabs[k].removeAttribute("aria-current");}
+    if(views[h]) window.scrollTo(0,0);
+  }
+  window.addEventListener("hashchange",show);show();
+  document.querySelectorAll("button.copy").forEach(function(b){
+    b.addEventListener("click",function(){
+      var el=b.previousElementSibling,n=el.textContent.trim();
+      function done(){b.textContent="Kopiert";setTimeout(function(){b.textContent="Kopier";},1500);}
+      function fallback(){var r=document.createRange();r.selectNodeContents(el);var s=getSelection();s.removeAllRanges();s.addRange(r);}
+      try{navigator.clipboard.writeText(n).then(done,fallback);}catch(e){fallback();}
+    });
+  });
+})();
+render();
+</script>
+</body>
+</html>
