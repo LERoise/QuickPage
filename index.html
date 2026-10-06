@@ -95,6 +95,7 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .links{display:flex;flex-wrap:wrap;gap:8px}
 .links a{display:inline-flex;align-items:center;min-height:36px;padding:6px 12px;border:1px solid var(--line);border-radius:8px;text-decoration:none;font-weight:700;font-size:.88rem;background:var(--surface)}
 .contacts a.maplink{color:inherit;font-weight:700}
+.body .allergy{order:99;font-size:.85rem;color:var(--muted)}
 .body .addr{color:var(--muted);font-size:.9rem}
 .stops{list-style:none;padding:0!important;display:flex;flex-direction:column;gap:8px}
 .stops li{border-left:3px solid var(--sun);padding-left:10px}
@@ -205,13 +206,13 @@ button.copy{font-weight:700;font-size:.68rem;border:1px solid currentColor;backg
   </div>
 
   <div class="slot">
-    <div class="when">Lørdag · kvelden fra 16.45</div>
-    <h2>Siste kveld</h2>
-    <p>Vi er tilbake på hotellet i god tid før solnedgang (ca. kl. 19). Søndag er det transfer 08.45, så ta en tidlig kveld.</p>
+    <div class="when">Lørdag · fra 16.45 til middag 19.30</div>
+    <h2>Før siste middag</h2>
+    <p>Vi er tilbake på hotellet 16.45, og middagen på Dopios starter 19.30. Hold deg i nærheten av hotellet. Søndag går transferen 08.45.</p>
     <div class="ideas">
-      <div class="idea"><h3>Solnedgang ved Kapp Sounion</h3><p>Poseidon-tempelet på klippen ytterst på kysten, med solen som går ned i havet. Kjøreturen langs kysten er en opplevelse i seg selv. Dette er noe helt annet enn det vi ser i byen.</p><div class="meta">Ca. 45 min med taxi/minibuss hver vei · dra senest 17.30</div><p class="links"><a href="https://www.thisisathens.org/antiquities/temple-poseidon-sounion" target="_blank" rel="noopener">Om tempelet</a><a href="https://www.google.com/maps/search/?api=1&query=Temple+of+Poseidon+Sounion" target="_blank" rel="noopener">Kart</a></p></div>
-      <div class="idea"><h3>Takbar med Akropolis-utsikt</h3><p>Monastiraki har flere takbarer med Akropolis opplyst om kvelden. Det gir et helt annet bilde enn på formiddagen.</p><div class="meta">Taxi 30–40 min tilbake til sentrum</div><p class="links"><a href="https://three-sixty.gr/" target="_blank" rel="noopener">360 Cocktail Bar</a><a href="https://www.google.com/maps/search/?api=1&query=360+Cocktail+Bar+Monastiraki" target="_blank" rel="noopener">Kart</a></p></div>
-      <div class="idea"><h3>Middag i Glyfada</h3><p>Den enkleste løsningen før tidlig avreise. Velg noe vi ikke har hatt ennå – for eksempel souvlaki eller sjømat.</p><div class="meta">Gangavstand</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=restaurants+Glyfada" target="_blank" rel="noopener">Finn restaurant</a></p></div>
+      <div class="idea"><h3>Basseng eller hvil</h3><p>Etter en dag til fots i Athen er det godt med en dukkert i hotellets utebasseng eller en time på rommet.</p><div class="meta">På hotellet</div></div>
+      <div class="idea"><h3>Solnedgang på stranden</h3><p>Solen går ned i havet ca. kl. 18.50. Gå ned til stranden i Glyfada og se den før middag.</p><div class="meta">Kort gåtur fra hotellet</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=Glyfada+beach" target="_blank" rel="noopener">Kart</a></p></div>
+      <div class="idea"><h3>Aperitiff i nærheten</h3><p>Laodikis-gaten, der Dopios ligger, er full av kafeer og barer. Møtes der for en drink før middag.</p><div class="meta">Ved restauranten</div><p class="links"><a href="https://www.google.com/maps/search/?api=1&query=Laodikis%2C+Glyfada" target="_blank" rel="noopener">Kart</a></p></div>
     </div>
   </div>
   <section class="tips" aria-labelledby="praktisk">
@@ -224,6 +225,7 @@ button.copy{font-weight:700;font-size:.68rem;border:1px solid currentColor;backg
       <dt>Glemt noe?</dt><dd>Apotek (grønt kors) og gatekiosker (periptero) har solkrem, hodepinetabletter og det meste annet.</dd>
       <dt>Taxi</dt><dd>Resepsjonen bestiller gjerne, og taxi-apper fungerer i Athen. Hotellet ligger 30–40 min fra sentrum.</dd>
       <dt>Søndag</dt><dd>Sjekk ut før transferen kl. 08.45.</dd>
+      <dt>Allergier</dt><dd>Alle restaurantene og båtselskapet er informert om allergier.</dd>
       <dt>Nødnummer</dt><dd><span class="mono">112</span></dd>
     </dl>
   </section>
@@ -250,26 +252,26 @@ var DAYS=[
  {t:"2026-10-08T06:00+02:00",show:"06.00",title:"Avreise med SK4637",place:"Oslo lufthavn · norsk tid",
   body:"<p>Flytiden er ca. 3 t 50 min. Hellas er én time foran Norge – still klokka når vi lander.</p>"},
  {t:"2026-10-08T10:50+03:00",show:"10.50",title:"Ankomst Athen",place:"Guiden Vegard møter oss",
-  body:"<p>Vegard Trovatn venter i ankomsthallen med skilt «Gnist Consulting». Transfer med buss til hotellet i Glyfada, ca. 40 minutter langs kysten.</p>"},
- {t:"2026-10-08T11:45+03:00",when:"Formiddag",title:"Athens Coast Hotel",place:"Vi setter fra oss bagasjen",img:"hotel",
-  body:"<p>Hotellet ligger midt i Glyfada, «Athen-rivieraen» – kystbyen sør for sentrum med strender, marina, butikker og kafeer. Utebasseng, og trikken inn til sentrum går 100 meter unna.</p><p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Athens+Coast+Hotel%2C+Grigoriou+Lampraki+25%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://www.athenscoasthotel.gr/' target='_blank' rel='noopener'>Hotellets nettside</a></p><p class='addr'>Grigoriou Lampraki 25, 166 75 Glyfada</p>"},
+  body:"<p>Vegard Trovatn venter i ankomsthallen med skilt «Gnist Consulting». Transfer med buss til hotellet i Glyfada, ca. 40 minutter langs kysten. Der setter vi fra oss bagasjen, og Vegard blir med oss videre til lunsj.</p>"},
  {t:"2026-10-08T12:45+03:00",show:"12.45",title:"Lunsj på O Proedros",place:"Savva Lazaridi 3 · Vegard blir med",img:"proedros",
-  body:"<p>«Presidenten» er en familiefavoritt i Glyfada, med hvitkalket gårdsplass som minner om en taverna på Kykladene. Kjent for grill og souvlaki.</p>"+
+  body:"<p class='allergy'>Restauranten er informert om allergier.</p><p>«Presidenten» er en familiefavoritt i Glyfada, med hvitkalket gårdsplass som minner om en taverna på Kykladene. Kjent for grill og souvlaki.</p>"+
   "<details class='menu'><summary>Meny</summary><div class='m'><h4>Til deling (meze)</h4><p>Gresk salat, tzatziki, auberginekuler</p><h4>Hovedrett</h4><p>Chicken gyro-tallerken</p><h4>Dessert</h4><p>Bougatsa – søt pai fra Nord-Hellas</p></div></details><p class='links'><a href='https://www.google.com/maps/search/?api=1&query=O+Proedros%2C+Savva+Lazaridi+3%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a></p>"},
- {t:"2026-10-08T14:30+03:00",when:"Ettermiddag",title:"Fri ettermiddag",place:"Slapp av i Glyfada",free:true,
+ {t:"2026-10-08T14:15+03:00",when:"Etter lunsj",title:"Innsjekk på Athens Coast Hotel",place:"Grigoriou Lampraki 25, Glyfada",img:"hotel",
+  body:"<p>Hotellet ligger midt i Glyfada, «Athen-rivieraen» – kystbyen sør for sentrum med strender, marina, butikker og kafeer. Utebasseng, og trikken inn til sentrum går 100 meter unna.</p><p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Athens+Coast+Hotel%2C+Grigoriou+Lampraki+25%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://www.athenscoasthotel.gr/' target='_blank' rel='noopener'>Hotellets nettside</a></p><p class='addr'>Grigoriou Lampraki 25, 166 75 Glyfada</p>"},
+ {t:"2026-10-08T14:45+03:00",when:"Ettermiddag",title:"Fri ettermiddag",place:"Slapp av i Glyfada",free:true,
   body:"<p>Hvil etter den tidlige avreisen, ta en tur i bassenget eller en kaffe i Glyfada.</p>"+FRITID},
- {t:"2026-10-08T19:30+03:00",when:"Kveld",title:"Middag på Monk Gastrobar",place:"Lazaraki 26 · drikkepakke inkludert",img:"monk",
-  body:"<p>Moderne gastrobar der alt dreier seg om Josper – en vedfyrt kullgrill som gir kjøttet røykaroma. Moderne vri på greske oppskrifter.</p>"+
-  "<details class='menu'><summary>Meny</summary><div class='m'><p>Brød med aromatisk smør</p><h4>Salat – velg én</h4><ul><li>Avokado- og appelsinsalat med ingefærsaus, parmesan og hasselnøtt</li><li>Tomatsalat med sjøfennikel, kapersblader, oliven og geitost</li></ul><h4>Smårett</h4><ul><li>Knuste trippelkokte poteter, parmesankrem, trøffelolje</li><li>Greske kjøttboller med yoghurtkrem og røkt paprika</li><li>Ostedoughnuts med graviera og mangochutney</li><li>Røkt aubergine fra Josper-grillen, feta-skum</li></ul><h4>Hovedrett</h4><p>Mixed grill – kylling, short ribs, burger, pølse, svinekotelett, coleslaw, potetpuré</p><h4>Dessert – velg én</h4><ul><li>Profiterole</li><li>Baklava med vaniljeis</li></ul><h4>Drikke</h4><p>Hvit-, rosé- og rødvin, Monk fatøl, brus og vann</p></div></details>"+
+ {t:"2026-10-08T19:00+03:00",show:"19.00",title:"Middag på Monk Gastrobar",place:"Lazaraki 26 · drikkepakke inkludert",img:"monk",
+  body:"<p class='allergy'>Restauranten er informert om allergier.</p><p>Moderne gastrobar der alt dreier seg om Josper – en vedfyrt kullgrill som gir kjøttet røykaroma. Moderne vri på greske oppskrifter.</p>"+
+  "<details class='menu'><summary>Meny</summary><div class='m'><p>Brød med aromatisk smør</p><h4>Salat</h4><p>Tomatsalat med sjøfennikel, kapersblader, oliven og geitost</p><h4>Smårett</h4><ul><li>Knuste trippelkokte poteter, parmesankrem, trøffelolje</li><li>Greske kjøttboller med yoghurtkrem og røkt paprika</li><li>Ostedoughnuts med graviera og mangochutney</li><li>Røkt aubergine fra Josper-grillen, feta-skum</li></ul><h4>Hovedrett</h4><p>Mixed grill – kylling, short ribs, burger, pølse, svinekotelett, coleslaw, potetpuré</p><h4>Dessert</h4><p>Profiterole med vaniljekrem og sjokoladeganache</p><h4>Drikke</h4><p>Hvit-, rosé- og rødvin, Monk fatøl, brus og vann</p></div></details>"+
   "<p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Monk+Gastrobar%2C+Lazaraki+26%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://www.monk-glyfada.com/' target='_blank' rel='noopener'>Nettside</a></p><p class='addr'>Lazaraki 26, Glyfada · +30 210 898 3900</p>"}
 ]},
 {id:"2026-10-09",name:"Fredag",short:"Fre",date:"9. okt",items:[
  {t:"2026-10-09T07:00+03:00",when:"Morgen",title:"Frokost på hotellet",place:"Pakk til båten",
   body:"<p>Ta med badetøy, håndkle, solkrem og solbriller.</p>"},
- {t:"2026-10-09T11:15+03:00",show:"11.15",title:"Avreise til havnen",place:"Sammen med Vegard",
+ {t:"2026-10-09T11:50+03:00",show:"11.50",title:"Avreise til havnen",place:"Sammen med Vegard",
   body:"<p>Vegard følger oss fra hotellet til båten.</p>"},
  {t:"2026-10-09T12:30+03:00",show:"12.30",title:"Privat cruise til Hydrousa",place:"Bading, musikk og BBQ om bord",img:"boat",note:"Badetøy",
-  body:"<p>Hydrousa er en liten, ubebodd øy utenfor Athen-rivieraen, kjent for krystallklart, turkist vann og ingen folkemengder.</p><ul><li>Bading fra båten</li><li>Musikk og god stemning</li><li>Gresk BBQ-lunsj om bord</li><li>Ubegrenset øl og vin</li></ul>"},
+  body:"<p class='allergy'>Båtselskapet er informert om allergier.</p><p>Hydrousa er en liten, ubebodd øy utenfor Athen-rivieraen, kjent for krystallklart, turkist vann og ingen folkemengder.</p><ul><li>Bading fra båten</li><li>Musikk og god stemning</li><li>Gresk BBQ-lunsj om bord</li><li>Ubegrenset øl og vin</li></ul>"},
  {t:"2026-10-09T18:30+03:00",show:"18.30",title:"Tilbake i havnen",place:""},
  {t:"2026-10-09T19:15+03:00",show:"19.15",title:"Tilbake på hotellet",place:""},
  {t:"2026-10-09T19:30+03:00",when:"Kveld",title:"Fri kveld",place:"Middag på egen hånd",free:true,
@@ -284,14 +286,18 @@ var DAYS=[
   "<li><b>Akropolis</b>Bussen setter oss av ved Akropolis, og vi ser anlegget med Parthenon fra utsiden.</li>"+
   "<li><b>Plaka</b>Byens eldste bydel, i skråningen under Akropolis. Guidet spasertur til lunsj – Vegard viser de beste shoppingstedene.</li></ul>"},
  {t:"2026-10-10T13:30+03:00",show:"13.30",title:"Lunsj på Gods' Restaurant",place:"Makrigianni 23",img:"gods",note:"Store porsjoner",
-  body:"<p>Familiedrevet restaurant i gågata Makrygianni, rett overfor Akropolis-museet. Hovedretten velger du på stedet.</p>"+
+  body:"<p class='allergy'>Restauranten er informert om allergier.</p><p>Familiedrevet restaurant i gågata Makrygianni, rett overfor Akropolis-museet. Hovedretten velger du på stedet.</p>"+
   "<details class='menu'><summary>Meny</summary><div class='m'><p>Brød med oliven og tzatziki</p><p>Middelhavssalat med feta, basilikum, mynte og honning-lime-dressing</p><p>Ostepai fra Skopelos med honning- og ouzodressing</p><h4>Hovedrett – velg på stedet</h4><ul><li>Tradisjonell moussaka</li><li>Chicken gyros med pita, poteter og tzatziki</li><li>Giouvetsi – oksegryte med orzo</li></ul><h4>Dessert</h4><p>Yoghurt med honning og valnøtter</p><h4>Drikke</h4><p>Vann, pluss én drikke per person (brus, øl eller vin)</p></div></details><p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Gods+Restaurant%2C+Makrygianni+23%2C+Athens' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://www.gods-restaurant.com/en/' target='_blank' rel='noopener'>Nettside</a></p>"},
  {t:"2026-10-10T15:00+03:00",when:"Etter lunsj",title:"Egentid i Plaka",place:"Shopping eller museum",free:true,
   body:"<p>Akropolis-museet ligger to minutter fra restauranten og er åpent til 20.00. Her står skulpturene fra Parthenon.</p><p class='links'><a href='https://www.theacropolismuseum.gr/en/' target='_blank' rel='noopener'>Akropolis-museet</a></p>"+FRITID},
  {t:"2026-10-10T16:00+03:00",show:"16.00",title:"Avreise fra Plaka",place:"Sammen med Vegard"},
  {t:"2026-10-10T16:45+03:00",show:"16.45",title:"Ankomst hotellet",place:""},
- {t:"2026-10-10T17:00+03:00",when:"Kveld",title:"Fri kveld",place:"Siste kveld i Athen",free:true,
-  body:"<p>Solen går ned ca. kl. 18.50. Transfer søndag går 08.45 – ta en tidlig kveld.</p>"+FRITID}
+ {t:"2026-10-10T17:00+03:00",when:"Før middag",title:"Fri til middag",place:"Slapp av i Glyfada",free:true,
+  body:"<p>Hvil, ta en tur i bassenget, eller se solnedgangen fra stranden i Glyfada (ca. kl. 18.50).</p>"+FRITID},
+ {t:"2026-10-10T19:30+03:00",show:"19.30",title:"Middag på Dopios Glyfada",place:"Laodikis 31 · åpen bar inkludert",
+  body:"<p class='allergy'>Restauranten er informert om allergier.</p><p>«Dopios» betyr «lokal». Kokken Christoforos Peskias lager moderne meze av greske råvarer fra hele landet, og vinlisten er bare gresk. Rettene deles på bordet.</p>"+
+  "<details class='menu'><summary>Meny</summary><div class='m'><h4>Til deling</h4><ul><li>Brød fra bakeriet «To Tromero Paidi»</li><li>Avokado-tzatziki</li><li>Sildesalat-spread</li><li>«Maniatiki» – potetsalat fra Mani med avokado, appelsin, oliven og vårløk</li><li>Gresk salat med xinotiri-ost fra Syros, villtimian og kapers</li><li>Dolmadakia – vinblader fylt med ris, med cashew-yoghurt</li><li>Braisert blekksprut med fava fra Santorini</li><li>Lammeburger med myntechutney</li><li>Pommes frites</li><li>Gigantes – kjempebønner fra Kastoria, bakt og som hummus</li><li>Kalvefilet fra Ioannina med kaperssaus</li></ul><h4>Dessert</h4><ul><li>Galatopita – melkepai, tres leches</li><li>Semifreddo av makedonsk halva med daddelhonning</li></ul><h4>Åpen bar</h4><p>Ouzo, tsipouro, hvit-, rosé- og rødvin, enkle drinker (gin, vodka), Nimfi fatøl, brus, vann og kaffe</p></div></details>"+
+  "<p class='links'><a href='https://www.google.com/maps/search/?api=1&query=Dopios+Glyfada%2C+Laodikis+31%2C+Glyfada' target='_blank' rel='noopener'>Åpne i Google Maps</a><a href='https://dopiosrestaurant.gr/' target='_blank' rel='noopener'>Nettside</a></p><p class='addr'>Laodikis 31, Glyfada · +30 210 898 1747</p>"}
 ]},
 {id:"2026-10-11",name:"Søndag",short:"Søn",date:"11. okt",items:[
  {t:"2026-10-11T06:30+03:00",when:"Morgen",title:"Frokost og utsjekking",place:"Rekk transferen 08.45"},
