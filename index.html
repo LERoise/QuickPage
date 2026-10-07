@@ -97,6 +97,9 @@ details[open] > summary .chev{transform:rotate(180deg)}
 .contacts a.maplink{color:inherit;font-weight:700}
 .body .allergy{order:99;font-size:.85rem;color:var(--muted)}
 .body .addr{color:var(--muted);font-size:.9rem}
+.steps{margin:0;padding-left:22px!important;display:flex;flex-direction:column;gap:8px}
+.steps li::marker{color:var(--sun);font-weight:700}
+.steps b{display:block}
 .stops{list-style:none;padding:0!important;display:flex;flex-direction:column;gap:8px}
 .stops li{border-left:3px solid var(--sun);padding-left:10px}
 .stops b{display:block}
@@ -268,6 +271,9 @@ var DAYS=[
 {id:"2026-10-09",name:"Fredag",short:"Fre",date:"9. okt",items:[
  {t:"2026-10-09T07:00+03:00",when:"Morgen",title:"Frokost på hotellet",place:"Pakk til båten",
   body:"<p>Ta med badetøy, håndkle, solkrem og solbriller.</p>"},
+ {t:"2026-10-09T09:00+03:00",show:"09.00",title:"Workshop: Stress",place:"Selvrefleksjon og samtale i grupper",
+  body:"<p><b>Hensikt:</b> Bli bevisst hvordan stress virker på deg og på dem rundt deg, og ta med én ting du kan gjøre noe med.</p>"+
+  "<ol class='steps'><li><b>Velkommen</b>Hvorfor vi er her.</li><li><b>Oppgave 1</b>Gå alene for selvrefleksjon og ta notater.</li><li><b>Oppgave 2</b>Kom tilbake for å få en gruppe. Gå sammen og del refleksjonene. Del bare det du vil.</li><li><b>Oppsummering</b>Kom tilbake. Noen mønstre eller tips dere vil dele med de andre?</li></ol>"},
  {t:"2026-10-09T11:50+03:00",show:"11.50",title:"Avreise til havnen",place:"Sammen med Vegard",
   body:"<p>Vegard følger oss fra hotellet til båten.</p>"},
  {t:"2026-10-09T12:30+03:00",show:"12.30",title:"Privat cruise til Hydrousa",place:"Bading, musikk og BBQ om bord",img:"boat",note:"Badetøy",
